@@ -1,0 +1,8 @@
+version: '3.4'
+
+services:
+  cookbot:
+    image: ${DOCKER_REGISTRY-}cookbot
+    build:
+      context: .
+      dockerfile: Dockerfile
