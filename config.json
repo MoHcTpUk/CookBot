@@ -1,0 +1,13 @@
+﻿{
+  //"TimeZone": "E. Europe Standard Time", // Windows
+  "TimeZone": "Europe/Chisinau", // Linux
+  "Bot": {
+    "BotToken": "",
+    //"ChatId": 0
+    "ChatId": 0 // test
+  },
+  "Scheduler": {
+    "Hours": 13,
+    "Minutes": 0
+  }
+}
