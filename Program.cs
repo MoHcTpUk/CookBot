@@ -42,7 +42,7 @@ namespace CookBot
             // Trigger the job to run everyday
             ITrigger trigger = TriggerBuilder.Create()
                 .WithSchedule(CronScheduleBuilder
-                    .DailyAtHourAndMinute(hours, minutes)
+                    .AtHourAndMinuteOnGivenDaysOfWeek(hours, minutes, DayOfWeek.Monday, DayOfWeek.Tuesday, DayOfWeek.Wednesday, DayOfWeek.Thursday, DayOfWeek.Friday)
                     .InTimeZone(TimeZoneInfo.FindSystemTimeZoneById(timeZoneId)))
                 .Build();
 
