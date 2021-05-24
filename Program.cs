@@ -15,16 +15,36 @@ namespace CookBot
 
         public static async Task Main()
         {
+            int hours;
+            int minutes;
+            string timeZoneId;
+
             var configuration = new ConfigurationBuilder()
                 .AddJsonFile(Path.Combine(Path.GetDirectoryName(System.Reflection.Assembly.GetEntryAssembly()?.Location) ?? string.Empty, ConfigFile))
                 .Build();
 
-            var timeZoneId = configuration.GetValue<string>("TimeZone");
+            try
+            {
+                timeZoneId = configuration.GetValue<string>("TimeZone");
+            }
+            catch (Exception exception)
+            {
+                Console.WriteLine("Error while reading 'TimeZone' section in " + ConfigFile + ": " + exception.Message);
+                return;
+            }
 
-            var schedulerConfiguration = configuration.GetSection("Scheduler");
+            try
+            {
+                var schedulerConfiguration = configuration.GetSection("Scheduler");
 
-            var hours = schedulerConfiguration.GetValue<int>("Hours");
-            var minutes = schedulerConfiguration.GetValue<int>("Minutes");
+                hours = schedulerConfiguration.GetValue<int>("Hours");
+                minutes = schedulerConfiguration.GetValue<int>("Minutes");
+            }
+            catch (Exception exception)
+            {
+                Console.WriteLine("Error while reading 'Scheduler' section in " + ConfigFile + ": " + exception.Message);
+                return;
+            }
 
             LogProvider.SetCurrentLogProvider(new ConsoleLogProvider());
 
