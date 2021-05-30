@@ -103,7 +103,7 @@ namespace CookBot.Class
             var tomorrowDayOfWeek = now.AddDays(1).DayOfWeek;
 
             if (tomorrowDayOfWeek == DayOfWeek.Saturday)
-                tomorrowDayOfWeek = DayOfWeek.Monday;
+                tomorrowDayOfWeek = DayOfWeek.Sunday;
 
             var weekNumber = new GregorianCalendar().GetWeekOfYear(now, CalendarWeekRule.FirstFullWeek, DayOfWeek.Monday);
 
