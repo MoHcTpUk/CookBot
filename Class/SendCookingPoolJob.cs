@@ -134,11 +134,11 @@ namespace CookBot.Class
                 case DayOfWeek.Tuesday:
                     return "вторник";
                 case DayOfWeek.Wednesday:
-                    return "среду";
+                    return "среда";
                 case DayOfWeek.Thursday:
                     return "четверг";
                 case DayOfWeek.Friday:
-                    return "пятницу";
+                    return "пятница";
                 case DayOfWeek.Saturday:
                     return "суббота";
                 default:
