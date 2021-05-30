@@ -23,7 +23,7 @@ namespace CookBot.Class
 
         private List<DayOfWeek> ListDayOfWeek { get; } = new()
         {
-            DayOfWeek.Sunday,
+            DayOfWeek.Monday,
             DayOfWeek.Tuesday,
             DayOfWeek.Wednesday,
             DayOfWeek.Thursday,
@@ -99,19 +99,21 @@ namespace CookBot.Class
         private async Task SendMenu()
         {
             var now = DateTime.Now;
+            var nextDay = now.AddDays(1);
 
-            var tomorrowDayOfWeek = now.AddDays(1).DayOfWeek;
+            if (nextDay.DayOfWeek == DayOfWeek.Saturday)
+                nextDay = now.AddDays(3);
 
-            if (tomorrowDayOfWeek == DayOfWeek.Saturday)
-                tomorrowDayOfWeek = DayOfWeek.Sunday;
+            if (nextDay.DayOfWeek == DayOfWeek.Sunday)
+                nextDay = now.AddDays(2);
 
-            var weekNumber = new GregorianCalendar().GetWeekOfYear(now, CalendarWeekRule.FirstFullWeek, DayOfWeek.Monday);
+            var nextDayWeekNumber = new GregorianCalendar().GetWeekOfYear(nextDay, CalendarWeekRule.FirstFullWeek, DayOfWeek.Monday);
 
-            var text = @$"Меню на {now.AddDays(1).Date:dd-MM-yyyy} ({TranslateDayOfWeek(tomorrowDayOfWeek)}, {(weekNumber / 2 == 0 ? "четная" : "не чётная")} неделя):" + Environment.NewLine + Environment.NewLine;
+            var text = @$"Меню на {nextDay.Date:dd-MM-yyyy} ({TranslateDayOfWeek(nextDay.DayOfWeek)}, {(nextDayWeekNumber / 2 == 0 ? "четная" : "не чётная")} неделя):" + Environment.NewLine + Environment.NewLine;
 
-            var menu = weekNumber / 2 == 0 ? MenuEven : MenuNotEven;
+            var menu = nextDayWeekNumber / 2 == 0 ? MenuEven : MenuNotEven;
 
-            foreach (var item in menu[tomorrowDayOfWeek])
+            foreach (var item in menu[nextDay.DayOfWeek])
             {
                 text += "🍩 " + item + Environment.NewLine;
             }
@@ -128,8 +130,6 @@ namespace CookBot.Class
             switch (dayOfWeek)
             {
                 case DayOfWeek.Monday:
-                    return "воскресенье";
-                case DayOfWeek.Sunday:
                     return "понедельник";
                 case DayOfWeek.Tuesday:
                     return "вторник";
@@ -141,6 +141,8 @@ namespace CookBot.Class
                     return "пятница";
                 case DayOfWeek.Saturday:
                     return "суббота";
+                case DayOfWeek.Sunday:
+                    return "воскресенье";
                 default:
                     throw new ArgumentOutOfRangeException(nameof(dayOfWeek), dayOfWeek, null);
             }
