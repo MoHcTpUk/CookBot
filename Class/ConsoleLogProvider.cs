@@ -7,11 +7,14 @@ namespace CookBot.Class
     {
         public Logger GetLogger(string name)
         {
-            return (level, func, _, parameters) =>
+            return (level, func, exception, parameters) =>
             {
                 if (level >= LogLevel.Info && func != null)
                 {
                     Console.WriteLine("[" + DateTime.Now.ToLongTimeString() + "] [" + level + "] " + func(), parameters);
+
+                    if (exception != null)
+                        Console.WriteLine(exception.Message);
                 }
                 return true;
             };
