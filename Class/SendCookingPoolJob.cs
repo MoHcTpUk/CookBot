@@ -5,9 +5,12 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Threading.Tasks;
 using Telegram.Bot;
+using Telegram.Bot.Types;
 using Telegram.Bot.Types.Enums;
+using File = System.IO.File;
 
 namespace CookBot.Class
 {
@@ -36,7 +39,7 @@ namespace CookBot.Class
 
             var configuration = new ConfigurationBuilder()
                 .AddJsonFile(Path.Combine(
-                    Path.GetDirectoryName(System.Reflection.Assembly.GetEntryAssembly()?.Location) ?? string.Empty,
+                    Path.GetDirectoryName(Assembly.GetEntryAssembly()?.Location) ?? string.Empty,
                     Program.ConfigFile))
                 .Build();
 
@@ -116,7 +119,37 @@ namespace CookBot.Class
                 text += "🍩 " + item + Environment.NewLine;
             }
 
-            await Bot.SendTextMessageAsync(
+
+
+
+
+
+
+            var mediaList = new List<InputMedia>();
+            
+            var fileStreamList = new List<FileStream>
+            {
+                File.OpenRead(Path.Combine(Path.GetDirectoryName(Assembly.GetEntryAssembly()?.Location) ?? string.Empty, "img\\1.jpg")),
+                File.OpenRead(Path.Combine(Path.GetDirectoryName(Assembly.GetEntryAssembly()?.Location) ?? string.Empty, "img\\2.jpg")),
+                //File.OpenRead(Path.Combine(Path.GetDirectoryName(Assembly.GetEntryAssembly()?.Location) ?? string.Empty, "img\\3.jpg")),
+            };
+
+            foreach (var fileStream in fileStreamList)
+            {
+                mediaList.Add(new InputMedia(fileStream,fileStream.Name));
+            }
+
+            try
+            {
+                await Bot.SendMediaGroupAsync( ChatId,);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
+
+             await Bot.SendTextMessageAsync(
                 chatId: ChatId,
                 text: text,
                 parseMode: ParseMode.Markdown

@@ -46,7 +46,7 @@ namespace CookBot
                 return;
             }
 
-            LogProvider.SetCurrentLogProvider(new ConsoleLogProvider());
+            //LogProvider.SetCurrentLogProvider(new ConsoleLogProvider());
 
             // Grab the Scheduler instance from the Factory
             StdSchedulerFactory factory = new StdSchedulerFactory();
@@ -61,9 +61,9 @@ namespace CookBot
 
             // Trigger the job to run everyday
             ITrigger trigger = TriggerBuilder.Create()
-                .WithSchedule(CronScheduleBuilder
-                    .AtHourAndMinuteOnGivenDaysOfWeek(hours, minutes, DayOfWeek.Monday, DayOfWeek.Tuesday, DayOfWeek.Wednesday, DayOfWeek.Thursday, DayOfWeek.Friday)
-                    .InTimeZone(TimeZoneInfo.FindSystemTimeZoneById(timeZoneId)))
+                //.WithSchedule(CronScheduleBuilder
+                //    .AtHourAndMinuteOnGivenDaysOfWeek(hours, minutes, DayOfWeek.Monday, DayOfWeek.Tuesday, DayOfWeek.Wednesday, DayOfWeek.Thursday, DayOfWeek.Friday)
+                //    .InTimeZone(TimeZoneInfo.FindSystemTimeZoneById(timeZoneId)))
                 .Build();
 
             // Tell quartz to schedule the job using our trigger
