@@ -13,7 +13,7 @@ namespace CookBot
     {
         public static string ConfigFile { get; } = "config.json";
 
-        private static string ReadTimeZone(IConfigurationRoot configuration)
+        private static string ReadTimeZone(IConfiguration configuration)
         {
             try
             {
@@ -27,7 +27,7 @@ namespace CookBot
             return null;
         }
 
-        private static (int?, int?) ReadScheduler(IConfigurationRoot configuration)
+        private static (int?, int?) ReadScheduler(IConfiguration configuration)
         {
             try
             {
