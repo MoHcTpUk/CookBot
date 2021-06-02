@@ -6,18 +6,12 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
-using Telegram.Bot;
 using Telegram.Bot.Types.Enums;
 
 namespace CookBot.Class
 {
     public class SendCookingPoolJob : IJob
     {
-        private TelegramBotClient Bot { get; set; }
-
-        private string BotToken { get; set; }
-        private long ChatId { get; set; }
-
         private Dictionary<DayOfWeek, List<string>> MenuEven { get; set; }
         private Dictionary<DayOfWeek, List<string>> MenuNotEven { get; set; }
 
@@ -50,19 +44,6 @@ namespace CookBot.Class
                 Console.WriteLine("Error while reading 'Menu' section in " + Program.ConfigFile + ": " + exception.Message);
             }
 
-            try
-            {
-                var botConfiguration = configuration.GetSection("Bot");
-                BotToken = botConfiguration.GetValue<string>("BotToken");
-                ChatId = botConfiguration.GetValue<long>("ChatId");
-            }
-            catch (Exception exception)
-            {
-                Console.WriteLine("Error while reading 'Bot' section in " + Program.ConfigFile + ": " + exception.Message);
-            }
-
-            Bot = new TelegramBotClient(BotToken);
-
             await SendMenu();
             await SendPool();
         }
@@ -84,8 +65,8 @@ namespace CookBot.Class
 
         private async Task SendPool()
         {
-            await Bot.SendPollAsync(
-                chatId: ChatId,
+            await BotClient.Bot.SendPollAsync(
+                chatId: BotClient.ChatId,
                 question: "Будешь завтра кушац?",
                 options: new[]
                 {
@@ -118,8 +99,8 @@ namespace CookBot.Class
                 text += "🍩 " + item + Environment.NewLine;
             }
 
-            await Bot.SendTextMessageAsync(
-                chatId: ChatId,
+            await BotClient.Bot.SendTextMessageAsync(
+                chatId: BotClient.ChatId,
                 text: text,
                 parseMode: ParseMode.Markdown
             );
