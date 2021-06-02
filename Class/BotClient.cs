@@ -7,11 +7,11 @@ namespace CookBot.Class
 {
     public static class BotClient
     {
-        public static TelegramBotClient Bot { get; }
-        private static string BotToken { get; }
-        public static long ChatId { get; }
+        public static TelegramBotClient Bot { get; private set; }
+        private static string BotToken { get; set; }
+        public static long ChatId { get; private set; }
 
-        static BotClient()
+        public static void Start()
         {
             var configuration = new ConfigurationBuilder()
                 .AddJsonFile(Path.Combine(
@@ -31,6 +31,8 @@ namespace CookBot.Class
             }
 
             Bot = new TelegramBotClient(BotToken);
+
+            Bot.StartReceiving();
         }
     }
 }
