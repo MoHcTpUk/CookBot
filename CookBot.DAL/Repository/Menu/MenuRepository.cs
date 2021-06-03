@@ -1,15 +1,17 @@
-﻿using Microsoft.Extensions.Configuration;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Linq;
+using Microsoft.Extensions.Configuration;
 
-namespace CookBot.Class
+namespace CookBot.DAL.Repository.Menu
 {
-    public static class MenuRepository
+    public class MenuRepository: IMenuRepository
     {
-        private static readonly List<DayOfWeek> ListDayOfWeek = new()
+        private string ConfigFile { get; } = "config.json";
+
+        private readonly List<DayOfWeek> ListDayOfWeek = new()
         {
             DayOfWeek.Monday,
             DayOfWeek.Tuesday,
@@ -18,7 +20,7 @@ namespace CookBot.Class
             DayOfWeek.Friday
         };
 
-        public static Dictionary<DayOfWeek, List<string>> GetMenu(DateTime date)
+        public Dictionary<DayOfWeek, List<string>> GetMenu(DateTime date)
         {
             Dictionary<DayOfWeek, List<string>> menuEven = new Dictionary<DayOfWeek, List<string>>();
             Dictionary<DayOfWeek, List<string>> menuNotEven = new Dictionary<DayOfWeek, List<string>>();
@@ -26,7 +28,7 @@ namespace CookBot.Class
             var configuration = new ConfigurationBuilder()
                 .AddJsonFile(Path.Combine(
                     Path.GetDirectoryName(System.Reflection.Assembly.GetEntryAssembly()?.Location) ?? string.Empty,
-                    Program.ConfigFile))
+                    ConfigFile))
                 .Build();
 
             try
@@ -36,7 +38,7 @@ namespace CookBot.Class
             }
             catch (Exception exception)
             {
-                Console.WriteLine("Error while reading 'Menu' section in " + Program.ConfigFile + ": " + exception.Message);
+                Console.WriteLine("Error while reading 'Menu' section in " + ConfigFile + ": " + exception.Message);
             }
 
             var weekNumber = new GregorianCalendar().GetWeekOfYear(date, CalendarWeekRule.FirstFullWeek, DayOfWeek.Monday);
@@ -44,7 +46,7 @@ namespace CookBot.Class
             return weekNumber / 2 == 0 ? menuEven : menuNotEven;
         }
 
-        private static Dictionary<DayOfWeek, List<string>> ParseMenu(IConfigurationSection menuConfigurationSection)
+        private Dictionary<DayOfWeek, List<string>> ParseMenu(IConfigurationSection menuConfigurationSection)
         {
             var menu = new Dictionary<DayOfWeek, List<string>>();
 
