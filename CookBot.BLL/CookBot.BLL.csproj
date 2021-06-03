@@ -4,4 +4,9 @@
     <TargetFramework>net5.0</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\CookBot.DAL\CookBot.DAL.csproj" />
+    <ProjectReference Include="..\Core\Core.BLL\Core.BLL.csproj" />
+  </ItemGroup>
+
 </Project>

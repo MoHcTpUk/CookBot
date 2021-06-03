@@ -1,4 +1,6 @@
-﻿using CookBot.Class;
+﻿using CookBot.App;
+using CookBot.Class;
+using MediatR;
 using Microsoft.Extensions.Configuration;
 using Quartz;
 using Quartz.Impl;
@@ -12,6 +14,8 @@ namespace CookBot
     class Program
     {
         public static string ConfigFile { get; } = "config.json";
+
+        public static IMediator Cmd = MediatorConfig.Mediator;
 
         private static string ReadTimeZone(IConfiguration configuration)
         {
@@ -93,7 +97,7 @@ namespace CookBot
             }
             else
             {
-                Console.WriteLine($@"Error reading configuration file {ConfigFile}: Hours, Minutes or TimeZone" );
+                Console.WriteLine($@"Error reading configuration file {ConfigFile}: Hours, Minutes or TimeZone");
             }
         }
     }

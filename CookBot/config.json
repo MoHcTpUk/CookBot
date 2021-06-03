@@ -27,5 +27,16 @@
       "Friday": [ "Суп картофельный с гречкой", "Мамалыга с токаной из свинины", "Салат селянский", "Компот" ],
       "Saturday": [ "Суп овощной", "Жаркое из курицы (свинины)", "Салат Коулело", "Компот" ]
     }
-  } 
+  },
+  "Logging": {
+    "LogLevel": {
+      "Default": "Information",
+      "Microsoft": "Warning",
+      "Microsoft.Hosting.Lifetime": "Information"
+    }
+  },
+  "AllowedHosts": "*",
+  "ConnectionStrings": {
+    "LocalConnection": "Host=127.0.0.1;Port=5432;Database=;Username=;Password="
+  }
 }
