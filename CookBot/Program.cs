@@ -9,8 +9,8 @@ namespace CookBot
 {
     class Program
     {
-        public static IMediator Cmd = MediatorConfig.Mediator;
-        public static IServiceProvider ServiceProvider = MediatorConfig.ServiceProvider;
+        public static IMediator Cmd = CoreConfig.Mediator;
+        public static IServiceProvider ServiceProvider = CoreConfig.ServiceProvider;
 
         public static async Task Main()
         {
