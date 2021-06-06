@@ -32,7 +32,7 @@ namespace CookBot.App.Quartz.Jobs
                 var jobDetail = JobBuilder.Create<SendCookingPoolJob>().Build();
                 var trigger = TriggerBuilder.Create()
                     .WithSchedule(CronScheduleBuilder
-                        .AtHourAndMinuteOnGivenDaysOfWeek(schedulerOptions.Hours, schedulerOptions.Minutes, DayOfWeek.Monday, DayOfWeek.Tuesday, DayOfWeek.Wednesday, DayOfWeek.Thursday, DayOfWeek.Friday, DayOfWeek.Sunday)
+                        .AtHourAndMinuteOnGivenDaysOfWeek(schedulerOptions.Hours, schedulerOptions.Minutes, DayOfWeek.Monday, DayOfWeek.Tuesday, DayOfWeek.Wednesday, DayOfWeek.Thursday, DayOfWeek.Friday)
                         .InTimeZone(TimeZoneInfo.FindSystemTimeZoneById(timeZoneId)))
                     .Build();
 
