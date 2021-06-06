@@ -8,7 +8,6 @@ namespace CookBot.App.Commands.Bot
 {
     public class BotSendPoolRequest : IRequest<Message>
     {
-        public long ChatId { get; set; }
     }
 
     public class BotSendPoolRequestHandler : IRequestHandler<BotSendPoolRequest, Message>
@@ -22,14 +21,14 @@ namespace CookBot.App.Commands.Bot
 
         public async Task<Message> Handle(BotSendPoolRequest request, CancellationToken cancellationToken)
         {
-            string question = "Будешь завтра кушац?";
+            string question = "Будешь кушац?";
             string[] options = new[]
             {
                 "✅ ДА",
                 "⛔️ НЕТ, я сыт багами в коде 🐞"
             };
 
-            return await _telegramBotService.SendPool(request.ChatId, question, options, false);
+            return await _telegramBotService.SendPool(question, options, false);
         }
     }
 }

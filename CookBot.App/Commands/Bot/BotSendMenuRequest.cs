@@ -11,7 +11,6 @@ namespace CookBot.App.Commands.Bot
 {
     public class BotSendMenuRequest : IRequest<Message>
     {
-        public long ChatId { get; set; }
     }
 
     public class BotSendMenuRequestHandler : IRequestHandler<BotSendMenuRequest, Message>
@@ -47,7 +46,7 @@ namespace CookBot.App.Commands.Bot
                 text += "🍩 " + item + Environment.NewLine;
             }
 
-            return await _telegramBotService.SendMessage(request.ChatId, text);
+            return await _telegramBotService.SendMessage(text);
         }
 
         private string TranslateDayOfWeek(DayOfWeek dayOfWeek)

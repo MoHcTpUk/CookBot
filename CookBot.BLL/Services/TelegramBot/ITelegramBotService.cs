@@ -6,7 +6,7 @@ namespace CookBot.BLL.Services.TelegramBot
     public interface ITelegramBotService
     {
         void Start(string botToken, long chatId);
-        Task<Message> SendPool(long chatId, string question, string[] options, bool isAnonymous);
-        Task<Message> SendMessage(long chatId, string message);
+        Task<Message> SendPool(string question, string[] options, bool isAnonymous);
+        Task<Message> SendMessage(string message);
     }
 }

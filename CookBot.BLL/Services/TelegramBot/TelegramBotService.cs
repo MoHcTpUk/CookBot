@@ -23,17 +23,17 @@ namespace CookBot.BLL.Services.TelegramBot
             Bot.StartReceiving();
         }
 
-        public async Task<Message> SendPool(long chatId, string question, string[] options, bool isAnonymous)
+        public async Task<Message> SendPool(string question, string[] options, bool isAnonymous)
         {
             return await Bot.SendPollAsync(
-                chatId: chatId,
+                chatId: ChatId,
                 question: question,
                 options: options,
                 isAnonymous: isAnonymous
             );
         }
 
-        public async Task<Message> SendMessage(long chatId, string message)
+        public async Task<Message> SendMessage(string message)
         {
             return await Bot.SendTextMessageAsync(
                 chatId: ChatId,
