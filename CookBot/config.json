@@ -1,10 +1,12 @@
 ﻿{
-  //"TimeZone": "E. Europe Standard Time", // Windows
-  "TimeZone": "Europe/Chisinau", // Linux
+  "TimeZone": {
+    "Windows": "E. Europe Standard Time",
+    "Linux": "Europe/Chisinau"
+  },
   "Bot": {
     "BotToken": "",
     //"ChatId": 0
-    "ChatId": 0 // test
+    "ChatId": 0// test
   },
   "Scheduler": {
     "Hours": 13,
@@ -37,6 +39,6 @@
   },
   "AllowedHosts": "*",
   "ConnectionStrings": {
-    "LocalConnection": "Host=127.0.0.1;Port=5432;Database=;Username=;Password="
+    "LocalConnection": "Host=;Port=;Database=;Username=;Password="
   }
 }

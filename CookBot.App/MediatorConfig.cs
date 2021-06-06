@@ -12,6 +12,7 @@ namespace CookBot.App
         static MediatorConfig()
         {
             Initializator.Init();
+            BLL.Initializator.Init();
             Mediator = Configurator.ServiceProvider.GetService<IMediator>();
         }
     }

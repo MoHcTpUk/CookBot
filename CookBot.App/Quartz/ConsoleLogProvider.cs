@@ -1,7 +1,7 @@
 ﻿using System;
 using Quartz.Logging;
 
-namespace CookBot.Class
+namespace CookBot.App.Quartz
 {
     public class ConsoleLogProvider : ILogProvider
     {
