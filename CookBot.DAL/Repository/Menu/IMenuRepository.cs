@@ -5,6 +5,6 @@ namespace CookBot.DAL.Repository.Menu
 {
     public interface IMenuRepository
     {
-        Dictionary<DayOfWeek, List<string>> GetMenu(DateTime date);
+        List<string> GetMenu(DateTime date);
     }
 }

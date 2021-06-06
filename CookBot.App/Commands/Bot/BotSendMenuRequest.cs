@@ -41,7 +41,7 @@ namespace CookBot.App.Commands.Bot
 
             var menu = _menuRepository.GetMenu(nextDay);
 
-            foreach (var item in menu[nextDay.DayOfWeek])
+            foreach (var item in menu)
             {
                 text += "🍩 " + item + Environment.NewLine;
             }
