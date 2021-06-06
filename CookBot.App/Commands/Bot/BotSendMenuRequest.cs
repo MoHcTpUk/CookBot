@@ -37,7 +37,7 @@ namespace CookBot.App.Commands.Bot
 
             var nextDayWeekNumber = new GregorianCalendar().GetWeekOfYear(nextDay, CalendarWeekRule.FirstFullWeek, DayOfWeek.Monday);
 
-            var text = @$"Меню на {nextDay.Date:dd-MM-yyyy} ({TranslateDayOfWeek(nextDay.DayOfWeek)}, {(nextDayWeekNumber % 2 == 0 ? "чётная" : "не чётная")} неделя):" + Environment.NewLine + Environment.NewLine;
+            var text = @$"Меню на {nextDay.Date:dd-MM-yyyy} ({CultureInfo.GetCultureInfo("ru-RU").DateTimeFormat.GetDayName(nextDay.DayOfWeek).ToLower()}, {(nextDayWeekNumber % 2 == 0 ? "чётная" : "не чётная")} неделя):" + Environment.NewLine + Environment.NewLine;
 
             var menu = _menuRepository.GetMenu(nextDay);
 
@@ -47,21 +47,6 @@ namespace CookBot.App.Commands.Bot
             }
 
             return await _telegramBotService.SendMessage(text);
-        }
-
-        private string TranslateDayOfWeek(DayOfWeek dayOfWeek)
-        {
-            return dayOfWeek switch
-            {
-                DayOfWeek.Monday => "понедельник",
-                DayOfWeek.Tuesday => "вторник",
-                DayOfWeek.Wednesday => "среда",
-                DayOfWeek.Thursday => "четверг",
-                DayOfWeek.Friday => "пятница",
-                DayOfWeek.Saturday => "суббота",
-                DayOfWeek.Sunday => "воскресенье",
-                _ => throw new ArgumentOutOfRangeException(nameof(dayOfWeek), dayOfWeek, null)
-            };
         }
     }
 }
