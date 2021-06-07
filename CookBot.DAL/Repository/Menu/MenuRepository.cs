@@ -19,7 +19,15 @@ namespace CookBot.DAL.Repository.Menu
                 .Build();
 
             const string section = "Menu";
-            var weekType = weekNumber % 2 == 0 ? "Even" : "NotEven";
+
+            string weekType = (weekNumber % 5) switch
+            {
+                0 => "Week3",
+                1 => "Week4",
+                3 => "Week1",
+                4 => "Week2",
+                _ => "Week1"
+            };
             var day = date.DayOfWeek.ToString();
 
             try
