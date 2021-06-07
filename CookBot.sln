@@ -5,8 +5,6 @@ VisualStudioVersion = 16.0.31112.23
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CookBot", "CookBot\CookBot.csproj", "{D7DE8250-3660-4C26-9735-1C8AEE72089E}"
 EndProject
-Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "CookBot\docker-compose.dcproj", "{FC2E6DD7-7D6A-47DA-A5BD-318C7D3BC7AF}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core", "Core", "{6351E1A3-EF49-4487-A7F1-2DF895BBCBF4}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Core.DAL", "Core\Core.DAL\Core.DAL.csproj", "{FF0D3A8E-F7DA-4D0C-8618-AEFE95A5E7E0}"
@@ -19,6 +17,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CookBot.BLL", "CookBot.BLL\
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CookBot.App", "CookBot.App\CookBot.App.csproj", "{DE663B42-47DA-4A59-8F13-442B8A8A28FF}"
 EndProject
+Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{D4958DC6-5D06-4CFE-A6CF-FFBBE4BE1BB9}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -29,10 +29,6 @@ Global
 		{D7DE8250-3660-4C26-9735-1C8AEE72089E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D7DE8250-3660-4C26-9735-1C8AEE72089E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D7DE8250-3660-4C26-9735-1C8AEE72089E}.Release|Any CPU.Build.0 = Release|Any CPU
-		{FC2E6DD7-7D6A-47DA-A5BD-318C7D3BC7AF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{FC2E6DD7-7D6A-47DA-A5BD-318C7D3BC7AF}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{FC2E6DD7-7D6A-47DA-A5BD-318C7D3BC7AF}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{FC2E6DD7-7D6A-47DA-A5BD-318C7D3BC7AF}.Release|Any CPU.Build.0 = Release|Any CPU
 		{FF0D3A8E-F7DA-4D0C-8618-AEFE95A5E7E0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{FF0D3A8E-F7DA-4D0C-8618-AEFE95A5E7E0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FF0D3A8E-F7DA-4D0C-8618-AEFE95A5E7E0}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -53,6 +49,10 @@ Global
 		{DE663B42-47DA-4A59-8F13-442B8A8A28FF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DE663B42-47DA-4A59-8F13-442B8A8A28FF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DE663B42-47DA-4A59-8F13-442B8A8A28FF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D4958DC6-5D06-4CFE-A6CF-FFBBE4BE1BB9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D4958DC6-5D06-4CFE-A6CF-FFBBE4BE1BB9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D4958DC6-5D06-4CFE-A6CF-FFBBE4BE1BB9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D4958DC6-5D06-4CFE-A6CF-FFBBE4BE1BB9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
