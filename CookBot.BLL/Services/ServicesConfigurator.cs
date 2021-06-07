@@ -12,7 +12,7 @@ namespace CookBot.BLL.Services
         public void ConfigureServices(IServiceCollection serviceCollection)
         {
             serviceCollection
-                .AddSingleton<IService<PollEntity, PollEntityDto>, PollService>()
+                .AddTransient<IService<PollEntity, PollEntityDto>, PollService>()
                 .AddSingleton<ITelegramBotService, TelegramBotService>()
                 ;
         }

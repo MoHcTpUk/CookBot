@@ -11,8 +11,8 @@ namespace CookBot.DAL.Repository
         public void ConfigureRepositories(IServiceCollection serviceCollection)
         {
             serviceCollection
-                .AddSingleton<IRepository<PollEntity>, PollRepository>()
-                .AddSingleton<IMenuRepository, MenuRepository>()
+                .AddTransient<IRepository<PollEntity>, PollRepository>()
+                .AddTransient<IMenuRepository, MenuRepository>()
                 ;
         }
     }
