@@ -35,6 +35,7 @@ namespace CookBot.App.Commands.Bot
                 throw new Exception("Poll not found!");
 
             poll.isClosed = true;
+            poll.Updated = DateTime.Now;
             await _pollService.Update(poll);
 
             return await _telegramBotService.ClosePool(request.MessageId);

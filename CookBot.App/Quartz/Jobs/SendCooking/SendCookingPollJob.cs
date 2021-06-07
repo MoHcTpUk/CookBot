@@ -14,12 +14,10 @@ namespace CookBot.App.Quartz.Jobs.SendCooking
             _mediator = mediator;
         }
 
-        public Task Execute(IJobExecutionContext context)
+        public async Task Execute(IJobExecutionContext context)
         {
-            _ = _mediator.Send(new BotSendMenuRequest());
-            _ = _mediator.Send(new BotSendPoolRequest());
-
-            return Task.CompletedTask;
+            await _mediator.Send(new BotSendMenuRequest());
+            await _mediator.Send(new BotSendPoolRequest());
         }
     }
 }
