@@ -6,5 +6,6 @@ namespace CookBot.DAL.Entities
     public class PollEntity : BaseEntity
     {
         public int MessageId { get; set; }
+        public bool isClosed { get; set; }
     }
 }
