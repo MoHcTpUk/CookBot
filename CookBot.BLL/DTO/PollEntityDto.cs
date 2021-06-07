@@ -2,5 +2,6 @@
 {
     public record PollEntityDto : AbstractEntityDto
     {
+        public int MessageId { get; set; }
     }
 }
