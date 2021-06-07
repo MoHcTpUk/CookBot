@@ -1,4 +1,6 @@
 ﻿using CookBot.App.Quartz.Jobs;
+using CookBot.App.Quartz.Jobs.CloseAllPoll;
+using CookBot.App.Quartz.Jobs.SendCooking;
 using Core.BLL.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -10,7 +12,8 @@ namespace CookBot.App.Quartz
         {
             serviceCollection
                 .AddTransient<JobFactory>()
-                .AddScoped<SendCookingPoolJob>();
+                .AddScoped<SendCookingPollJob>()
+                .AddScoped<CloseAllPollJob>();
             ;
         }
     }

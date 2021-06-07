@@ -41,6 +41,14 @@ namespace CookBot.BLL.Services.TelegramBot
             );
         }
 
+        public async Task<Poll> ClosePool(int messageId)
+        {
+            return await Bot.StopPollAsync(
+                chatId: ChatId,
+                messageId: messageId
+            );
+        }
+
         private void BotOnUpdateHandler(object sender, UpdateEventArgs e)
         {
             Console.WriteLine(e.Update.Id);

@@ -6,9 +6,9 @@ using Quartz.Impl;
 using System;
 using System.Runtime.InteropServices;
 
-namespace CookBot.App.Quartz.Jobs
+namespace CookBot.App.Quartz.Jobs.CloseAllPoll
 {
-    public static class SendCookingPoolJobScheduler
+    public static class CloseAllPollJobScheduler
     {
 
         public static async void Start(IServiceProvider serviceProvider)
@@ -29,10 +29,10 @@ namespace CookBot.App.Quartz.Jobs
                     serviceProvider.GetService<JobFactory>() ?? throw new InvalidOperationException();
                 await scheduler.Start();
 
-                var jobDetail = JobBuilder.Create<SendCookingPoolJob>().Build();
+                var jobDetail = JobBuilder.Create<CloseAllPollJob>().Build();
                 var trigger = TriggerBuilder.Create()
                     .WithSchedule(CronScheduleBuilder
-                        .AtHourAndMinuteOnGivenDaysOfWeek(schedulerOptions.Hours, schedulerOptions.Minutes, DayOfWeek.Monday, DayOfWeek.Tuesday, DayOfWeek.Wednesday, DayOfWeek.Thursday, DayOfWeek.Friday)
+                        .AtHourAndMinuteOnGivenDaysOfWeek(schedulerOptions.Hours + 1, schedulerOptions.Minutes, DayOfWeek.Monday, DayOfWeek.Tuesday, DayOfWeek.Wednesday, DayOfWeek.Thursday, DayOfWeek.Friday)
                         .InTimeZone(TimeZoneInfo.FindSystemTimeZoneById(timeZoneId)))
                     .Build();
 

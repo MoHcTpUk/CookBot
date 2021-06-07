@@ -1,15 +1,15 @@
-﻿using CookBot.App.Commands.Bot;
+﻿using System.Threading.Tasks;
+using CookBot.App.Commands.Bot;
 using MediatR;
 using Quartz;
-using System.Threading.Tasks;
 
-namespace CookBot.App.Quartz.Jobs
+namespace CookBot.App.Quartz.Jobs.SendCooking
 {
-    public class SendCookingPoolJob : IJob
+    public class SendCookingPollJob : IJob
     {
         private readonly IMediator _mediator;
 
-        public SendCookingPoolJob(IMediator mediator)
+        public SendCookingPollJob(IMediator mediator)
         {
             _mediator = mediator;
         }

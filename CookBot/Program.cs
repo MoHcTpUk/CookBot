@@ -1,9 +1,10 @@
-﻿using System;
-using CookBot.App;
+﻿using CookBot.App;
 using CookBot.App.Commands.Bot;
+using CookBot.App.Quartz.Jobs.CloseAllPoll;
+using CookBot.App.Quartz.Jobs.SendCooking;
 using MediatR;
+using System;
 using System.Threading.Tasks;
-using CookBot.App.Quartz.Jobs;
 
 namespace CookBot
 {
@@ -16,7 +17,8 @@ namespace CookBot
         {
             await Cmd.Send(new BotInitializeCommand());
 
-            SendCookingPoolJobScheduler.Start(ServiceProvider);
+            SendCookingPollJobScheduler.Start(ServiceProvider);
+            CloseAllPollJobScheduler.Start(ServiceProvider);
 
             await Task.Delay(-1);
         }

@@ -7,7 +7,7 @@ namespace CookBot.DAL.EF
     {
         public void ConfigureContextFactory(IServiceCollection serviceCollection)
         {
-            serviceCollection.AddDbContextFactory<ApplicationDbContext, ExsampleContextFactory>();
+            serviceCollection.AddDbContextFactory<ApplicationDbContext, ExsampleContextFactory>(lifetime: ServiceLifetime.Transient);
         }
     }
 }
