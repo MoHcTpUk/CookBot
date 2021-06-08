@@ -37,13 +37,13 @@ namespace CookBot.App.Commands.Bot
 
             var nextDayWeekNumber = new GregorianCalendar().GetWeekOfYear(nextDay, CalendarWeekRule.FirstFullWeek, DayOfWeek.Monday);
 
-            var text = @$"Меню на {nextDay.Date:dd-MM-yyyy} ({CultureInfo.GetCultureInfo("ru-RU").DateTimeFormat.GetDayName(nextDay.DayOfWeek).ToLower()}, {(nextDayWeekNumber % 2 == 0 ? "чётная" : "не чётная")} неделя):" + Environment.NewLine + Environment.NewLine;
+            var text = @$"Меню на {CultureInfo.GetCultureInfo("ru-RU").DateTimeFormat.GetDayName(nextDay.DayOfWeek).ToLower()} ({nextDay.Date:dd.MM.yyyy})" + Environment.NewLine + Environment.NewLine;
 
             var menu = _menuRepository.GetMenu(nextDay);
 
             foreach (var item in menu)
             {
-                text += "🍩 " + item + Environment.NewLine;
+                text += "🥗 " + item + Environment.NewLine;
             }
 
             return await _telegramBotService.SendMessage(text);

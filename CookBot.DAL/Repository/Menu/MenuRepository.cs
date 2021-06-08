@@ -20,12 +20,12 @@ namespace CookBot.DAL.Repository.Menu
 
             const string section = "Menu";
 
-            string weekType = (weekNumber % 5) switch
+            string weekType = (weekNumber % 4) switch
             {
-                0 => "Week3",
-                1 => "Week4",
+                0 => "Week2",
+                1 => "Week3",
+                2 => "Week4",
                 3 => "Week1",
-                4 => "Week2",
                 _ => "Week1"
             };
             var day = date.DayOfWeek.ToString();
