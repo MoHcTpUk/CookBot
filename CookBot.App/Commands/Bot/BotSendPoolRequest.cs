@@ -43,7 +43,7 @@ namespace CookBot.App.Commands.Bot
                 MessageId = message.MessageId
             };
 
-            await _pollService.Create(newPool);
+            await _pollService.CreateAsync(newPool);
 
             return message;
         }

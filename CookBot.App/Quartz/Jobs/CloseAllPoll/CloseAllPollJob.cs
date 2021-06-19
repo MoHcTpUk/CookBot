@@ -21,17 +21,15 @@ namespace CookBot.App.Quartz.Jobs.CloseAllPoll
             _pollService = pollService;
         }
 
-        public Task Execute(IJobExecutionContext context)
+        public async Task Execute(IJobExecutionContext context)
         {
-            var openedPolls = _pollService.Select(poll => !poll.isClosed).ToList();
+            var openedPolls = (await _pollService.SelectAsync(poll => !poll.isClosed)).ToList();
 
             foreach (var openedPoll in openedPolls)
             {
                 _ = _mediator.Send(new BotClosePoolRequest { MessageId = openedPoll.MessageId });
             }
             Console.WriteLine("Close all poll");
-
-            return Task.CompletedTask;
         }
     }
 }

@@ -1,13 +1,8 @@
-﻿using CookBot.DAL.EF;
-using CookBot.DAL.Entities;
-using Core.DAL.Repository;
-using Microsoft.EntityFrameworkCore;
+﻿using CookBot.DAL.Entities;
 
 namespace CookBot.DAL.Repository
 {
-    public class PollRepository : AbstractRepository<PollEntity>
+    public class PollRepository : MongoDbRepositoryAbstract<PollEntity>
     {
-        public PollRepository(IDbContextFactory<ApplicationDbContext> context) : base(context)
-        { }
     }
 }

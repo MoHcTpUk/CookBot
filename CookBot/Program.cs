@@ -5,6 +5,7 @@ using CookBot.App.Quartz.Jobs.SendCooking;
 using MediatR;
 using System;
 using System.Threading.Tasks;
+using CookBot.App.Commands.Test;
 
 namespace CookBot
 {
@@ -15,12 +16,14 @@ namespace CookBot
 
         public static async Task Main()
         {
-            await Cmd.Send(new BotInitializeCommand());
+            await Cmd.Send(new TestRequest());
 
-            SendCookingPollJobScheduler.Start(ServiceProvider);
-            CloseAllPollJobScheduler.Start(ServiceProvider);
+            //await Cmd.Send(new BotInitializeCommand());
 
-            await Task.Delay(-1);
+            //SendCookingPollJobScheduler.Start(ServiceProvider);
+            //CloseAllPollJobScheduler.Start(ServiceProvider);
+
+            //await Task.Delay(-1);
         }
     }
 }

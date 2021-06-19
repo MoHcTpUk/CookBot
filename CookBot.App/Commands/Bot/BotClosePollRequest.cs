@@ -29,14 +29,14 @@ namespace CookBot.App.Commands.Bot
 
         public async Task<Poll> Handle(BotClosePoolRequest request, CancellationToken cancellationToken)
         {
-            var poll = _pollService.Select(pollEntity => pollEntity.MessageId == request.MessageId).FirstOrDefault();
+            var poll = (await _pollService.SelectAsync(pollEntity => pollEntity.MessageId == request.MessageId)).FirstOrDefault();
 
             if (poll == null)
                 throw new Exception("Poll not found!");
 
             poll.isClosed = true;
             poll.Updated = DateTime.Now;
-            await _pollService.Update(poll);
+            await _pollService.UpdateAsync(poll);
 
             return await _telegramBotService.ClosePool(request.MessageId);
         }
