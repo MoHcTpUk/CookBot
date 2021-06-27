@@ -12,14 +12,22 @@ namespace CookBot.BLL.Services.TelegramBot
         private string BotToken { get; set; }
         public long ChatId { get; private set; }
 
-        public void Start(string botToken, long chatId)
+        public event EventHandler<UpdateEventArgs> OnUpdate
+        {
+            add => Bot.OnUpdate += value;
+            remove => Bot.OnUpdate -= value;
+        }
+
+        public void Init(string botToken, long chatId)
         {
             BotToken = botToken;
             ChatId = chatId;
 
             Bot = new TelegramBotClient(BotToken);
+        }
 
-            Bot.OnUpdate += BotOnUpdateHandler;
+        public void StartReceiving()
+        {
             Bot.StartReceiving();
         }
 
@@ -47,11 +55,6 @@ namespace CookBot.BLL.Services.TelegramBot
                 chatId: ChatId,
                 messageId: messageId
             );
-        }
-
-        private void BotOnUpdateHandler(object sender, UpdateEventArgs e)
-        {
-            Console.WriteLine(e.Update.Id);
         }
     }
 }
