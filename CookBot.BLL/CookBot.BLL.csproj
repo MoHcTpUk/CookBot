@@ -11,6 +11,7 @@
   <ItemGroup>
     <ProjectReference Include="..\CookBot.DAL\CookBot.DAL.csproj" />
     <ProjectReference Include="..\Core\Core.BLL\Core.BLL.csproj" />
+    <ProjectReference Include="..\Core\Core.Module.MongoDb\Core.Module.MongoDb.csproj" />
   </ItemGroup>
 
 </Project>

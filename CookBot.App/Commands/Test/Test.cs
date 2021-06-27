@@ -1,10 +1,8 @@
-﻿using CookBot.BLL.DTO;
-using CookBot.BLL.Services.TelegramBot;
+﻿using CookBot.BLL.Services.TelegramBot;
 using CookBot.DAL.Entities;
-using Core.BLL.Services;
+using Core.Module.MongoDb.Services;
 using MediatR;
 using System;
-using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -18,9 +16,9 @@ namespace CookBot.App.Commands.Test
     public class TestRequestHandler : IRequestHandler<TestRequest>
     {
         private readonly ITelegramBotService _telegramBotService;
-        private readonly IService<PollEntity, PollEntityDto> _pollService;
+        private readonly IMongdoDbService<PollEntity> _pollService;
 
-        public TestRequestHandler(ITelegramBotService telegramBotService, IService<PollEntity, PollEntityDto> pollService)
+        public TestRequestHandler(ITelegramBotService telegramBotService, IMongdoDbService<PollEntity> pollService)
         {
             _telegramBotService = telegramBotService;
             _pollService = pollService;
@@ -28,11 +26,27 @@ namespace CookBot.App.Commands.Test
 
         public async Task<Unit> Handle(TestRequest request, CancellationToken cancellationToken)
         {
-            var polls = await _pollService.SelectAsync(_ => true);
-            foreach (var poll in polls)
+            await _pollService.CreateAsync(new PollEntity()
             {
-                Console.WriteLine(poll.MessageId);
+                Created = DateTime.Now,
+                isClosed = false,
+                isDeleted = false,
+                MessageId = 666,
+                Updated = DateTime.Now
+            });
+
+            var data = await _pollService.SelectAsync(_ => true);
+
+            foreach (var item in data)
+            {
+                Console.WriteLine(item.MessageId);
             }
+
+            //var polls = await _pollService.SelectAsync(_ => true);
+            //foreach (var poll in polls)
+            //{
+            //    Console.WriteLine(poll.MessageId);
+            //}
 
             return Unit.Value;
         }

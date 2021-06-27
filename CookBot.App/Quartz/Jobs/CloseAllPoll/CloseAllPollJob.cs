@@ -1,21 +1,20 @@
-﻿using MediatR;
+﻿using CookBot.App.Commands.Bot;
+using CookBot.DAL.Entities;
+using Core.Module.MongoDb.Services;
+using MediatR;
 using Quartz;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
-using CookBot.App.Commands.Bot;
-using CookBot.BLL.DTO;
-using CookBot.DAL.Entities;
-using Core.BLL.Services;
 
 namespace CookBot.App.Quartz.Jobs.CloseAllPoll
 {
     public class CloseAllPollJob : IJob
     {
         private readonly IMediator _mediator;
-        private readonly IService<PollEntity, PollEntityDto> _pollService;
+        private readonly IMongdoDbService<PollEntity> _pollService;
 
-        public CloseAllPollJob(IMediator mediator, IService<PollEntity,PollEntityDto> pollService)
+        public CloseAllPollJob(IMediator mediator, IMongdoDbService<PollEntity> pollService)
         {
             _mediator = mediator;
             _pollService = pollService;

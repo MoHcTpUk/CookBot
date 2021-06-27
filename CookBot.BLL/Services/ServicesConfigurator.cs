@@ -1,8 +1,7 @@
-﻿using CookBot.BLL.DTO;
-using CookBot.BLL.Services.TelegramBot;
+﻿using CookBot.BLL.Services.TelegramBot;
 using CookBot.DAL.Entities;
 using Core.BLL.Configuration;
-using Core.BLL.Services;
+using Core.Module.MongoDb.Services;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace CookBot.BLL.Services
@@ -12,7 +11,7 @@ namespace CookBot.BLL.Services
         public void ConfigureServices(IServiceCollection serviceCollection)
         {
             serviceCollection
-                .AddTransient<IService<PollEntity, PollEntityDto>, PollService>()
+                .AddTransient<IMongdoDbService<PollEntity>, PollService>()
                 .AddSingleton<ITelegramBotService, TelegramBotService>()
                 ;
         }

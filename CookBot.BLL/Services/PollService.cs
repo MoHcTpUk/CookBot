@@ -1,14 +1,12 @@
-﻿using AutoMapper;
-using CookBot.BLL.DTO;
-using CookBot.DAL.Entities;
-using Core.BLL.Services;
-using Core.DAL.Repository;
+﻿using CookBot.DAL.Entities;
+using Core.Module.MongoDb.Repository;
+using Core.Module.MongoDb.Services;
 
 namespace CookBot.BLL.Services
 {
-    public class PollService : AbstractService<PollEntity, PollEntityDto>
+    public class PollService : MongoDbServiceAbstract<PollEntity>
     {
-        public PollService(IRepository<PollEntity> repository, IMapper mapper) : base(repository, mapper)
+        public PollService(IMongoDbRepository<PollEntity> repository) : base(repository)
         {
         }
     }

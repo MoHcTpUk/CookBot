@@ -1,12 +1,11 @@
-﻿using System;
-using System.Linq;
-using CookBot.BLL.Services.TelegramBot;
+﻿using CookBot.BLL.Services.TelegramBot;
+using CookBot.DAL.Entities;
+using Core.Module.MongoDb.Services;
 using MediatR;
+using System;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using CookBot.BLL.DTO;
-using CookBot.DAL.Entities;
-using Core.BLL.Services;
 using Telegram.Bot.Types;
 
 namespace CookBot.App.Commands.Bot
@@ -19,9 +18,9 @@ namespace CookBot.App.Commands.Bot
     public class BotClosePoolRequestHandler : IRequestHandler<BotClosePoolRequest, Poll>
     {
         private readonly ITelegramBotService _telegramBotService;
-        private readonly IService<PollEntity, PollEntityDto> _pollService;
+        private readonly IMongdoDbService<PollEntity> _pollService;
 
-        public BotClosePoolRequestHandler(ITelegramBotService telegramBotService, IService<PollEntity, PollEntityDto> pollService)
+        public BotClosePoolRequestHandler(ITelegramBotService telegramBotService, IMongdoDbService<PollEntity> pollService)
         {
             _telegramBotService = telegramBotService;
             _pollService = pollService;
