@@ -26,7 +26,7 @@ namespace CookBot.App.Quartz.Jobs.CloseAllPoll
 
             foreach (var openedPoll in openedPolls)
             {
-                _ = _mediator.Send(new BotClosePoolRequest { MessageId = openedPoll.MessageId });
+                _ = _mediator.Send(new BotClosePoolRequest(openedPoll.MessageId));
             }
             Console.WriteLine("Close all poll");
         }
