@@ -6,16 +6,12 @@ using System;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using Telegram.Bot.Types;
 
 namespace CookBot.App.Commands.Bot
 {
-    public class BotClosePoolRequest : IRequest<Poll>
-    {
-        public int MessageId { get; set; }
-    }
+    public record BotClosePoolRequest(int MessageId) : IRequest<Telegram.Bot.Types.Poll>;
 
-    public class BotClosePoolRequestHandler : IRequestHandler<BotClosePoolRequest, Poll>
+    public class BotClosePoolRequestHandler : IRequestHandler<BotClosePoolRequest, Telegram.Bot.Types.Poll>
     {
         private readonly ITelegramBotService _telegramBotService;
         private readonly IMongdoDbService<PollEntity> _pollService;
@@ -26,7 +22,7 @@ namespace CookBot.App.Commands.Bot
             _pollService = pollService;
         }
 
-        public async Task<Poll> Handle(BotClosePoolRequest request, CancellationToken cancellationToken)
+        public async Task<Telegram.Bot.Types.Poll> Handle(BotClosePoolRequest request, CancellationToken cancellationToken)
         {
             var poll = (await _pollService.SelectAsync(pollEntity => pollEntity.MessageId == request.MessageId)).FirstOrDefault();
 

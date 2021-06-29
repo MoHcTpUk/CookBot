@@ -10,10 +10,7 @@ using Telegram.Bot.Args;
 
 namespace CookBot.App.Commands.Bot
 {
-    public class BotInitializeCommand : IRequest
-    {
-        public List<EventHandler<UpdateEventArgs>> OnUpdateHandlers { get; set; }
-    }
+    public record BotInitializeCommand(List<EventHandler<UpdateEventArgs>> OnUpdateHandlers) : IRequest;
 
     public class BotInitializeCommandHandler: IRequestHandler<BotInitializeCommand>
     {

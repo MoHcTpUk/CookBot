@@ -9,9 +9,7 @@ using Telegram.Bot.Types;
 
 namespace CookBot.App.Commands.Bot
 {
-    public class BotSendMenuRequest : IRequest<Message>
-    {
-    }
+    public record BotSendMenuRequest : IRequest<Message>;
 
     public class BotSendMenuRequestHandler : IRequestHandler<BotSendMenuRequest, Message>
     {
