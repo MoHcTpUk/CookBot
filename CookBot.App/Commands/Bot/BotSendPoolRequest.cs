@@ -25,8 +25,7 @@ namespace CookBot.App.Commands.Bot
         public async Task<Message> Handle(BotSendPoolRequest request, CancellationToken cancellationToken)
         {
             string question = "Будешь кушац?";
-            string[] options = new[]
-            {
+            string[] options = {
                 "✅ ДА",
                 "⛔️ НЕТ, я сыт багами в коде 🐞"
             };
@@ -37,7 +36,8 @@ namespace CookBot.App.Commands.Bot
             {
                 Created = DateTime.Now,
                 Updated = DateTime.Now,
-                MessageId = message.MessageId
+                MessageId = message.MessageId,
+                PollId = message.Poll.Id
             };
 
             await _pollService.CreateAsync(newPool);

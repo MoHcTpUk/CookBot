@@ -22,7 +22,7 @@ namespace CookBot.App.Quartz.Jobs.CloseAllPoll
 
         public async Task Execute(IJobExecutionContext context)
         {
-            var openedPolls = (await _pollService.SelectAsync(poll => !poll.isClosed)).ToList();
+            var openedPolls = (await _pollService.SelectAsync(new(){_=>!_.isClosed})).ToList();
 
             foreach (var openedPoll in openedPolls)
             {

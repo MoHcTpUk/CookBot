@@ -24,7 +24,7 @@ namespace CookBot.App.Commands.Bot
 
         public async Task<Telegram.Bot.Types.Poll> Handle(BotClosePoolRequest request, CancellationToken cancellationToken)
         {
-            var poll = (await _pollService.SelectAsync(pollEntity => pollEntity.MessageId == request.MessageId)).FirstOrDefault();
+            var poll = (await _pollService.SelectAsync(new() { _ => _.MessageId == request.MessageId })).FirstOrDefault();
 
             if (poll == null)
                 throw new Exception("Poll not found!");
