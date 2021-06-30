@@ -17,9 +17,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CookBot.BLL", "CookBot.BLL\
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CookBot.App", "CookBot.App\CookBot.App.csproj", "{DE663B42-47DA-4A59-8F13-442B8A8A28FF}"
 EndProject
-Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{3D58C1C2-5F8B-4CFC-866C-095A0E1237CF}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Core.Module.MongoDb", "Core\Core.Module.MongoDb\Core.Module.MongoDb.csproj", "{CD86F604-67EE-466C-AC85-F8FFFF698577}"
+EndProject
+Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{D6ECC1AA-8804-4085-B68F-4C8D9F77AA96}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -51,14 +51,14 @@ Global
 		{DE663B42-47DA-4A59-8F13-442B8A8A28FF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DE663B42-47DA-4A59-8F13-442B8A8A28FF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DE663B42-47DA-4A59-8F13-442B8A8A28FF}.Release|Any CPU.Build.0 = Release|Any CPU
-		{3D58C1C2-5F8B-4CFC-866C-095A0E1237CF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{3D58C1C2-5F8B-4CFC-866C-095A0E1237CF}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{3D58C1C2-5F8B-4CFC-866C-095A0E1237CF}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{3D58C1C2-5F8B-4CFC-866C-095A0E1237CF}.Release|Any CPU.Build.0 = Release|Any CPU
 		{CD86F604-67EE-466C-AC85-F8FFFF698577}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{CD86F604-67EE-466C-AC85-F8FFFF698577}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CD86F604-67EE-466C-AC85-F8FFFF698577}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CD86F604-67EE-466C-AC85-F8FFFF698577}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D6ECC1AA-8804-4085-B68F-4C8D9F77AA96}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D6ECC1AA-8804-4085-B68F-4C8D9F77AA96}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D6ECC1AA-8804-4085-B68F-4C8D9F77AA96}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D6ECC1AA-8804-4085-B68F-4C8D9F77AA96}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

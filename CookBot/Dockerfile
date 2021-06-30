@@ -10,6 +10,7 @@ COPY ["CookBot.App/CookBot.App.csproj", "CookBot.App/"]
 COPY ["CookBot.BLL/CookBot.BLL.csproj", "CookBot.BLL/"]
 COPY ["Core/Core.BLL/Core.BLL.csproj", "Core/Core.BLL/"]
 COPY ["Core/Core.DAL/Core.DAL.csproj", "Core/Core.DAL/"]
+COPY ["Core/Core.Module.MongoDb/Core.Module.MongoDb.csproj", "Core/Core.Module.MongoDb/"]
 COPY ["CookBot.DAL/CookBot.DAL.csproj", "CookBot.DAL/"]
 RUN dotnet restore "CookBot/CookBot.csproj"
 COPY . .
