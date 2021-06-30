@@ -1,11 +1,12 @@
 ﻿using CookBot.App;
 using CookBot.App.Commands.Bot;
+using CookBot.App.Commands.Poll;
+using CookBot.App.Quartz.Jobs.CloseAllPoll;
+using CookBot.App.Quartz.Jobs.SendCooking;
 using MediatR;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
-using CookBot.App.Commands.Poll;
 using Telegram.Bot.Args;
 using Telegram.Bot.Types.Enums;
 
@@ -18,25 +19,18 @@ namespace CookBot
 
         public static async Task Main()
         {
-            await Cmd.Send(new BotInitializeCommand(new List<EventHandler<UpdateEventArgs>> { OnNewVote }));
+            await Cmd.Send(new BotInitializeCommand(new List<EventHandler<UpdateEventArgs>> { OnUpdateHandler }));
 
-            var msg = await Cmd.Send(new BotSendPoolRequest());
-
-            //var poll = await Cmd.Send(new BotClosePoolRequest(msg.MessageId));
-
-            //await Cmd.Send(new TestRequest());
-
-            //SendCookingPollJobScheduler.Start(ServiceProvider);
-            //CloseAllPollJobScheduler.Start(ServiceProvider);
+            SendCookingPollJobScheduler.Start(ServiceProvider);
+            CloseAllPollJobScheduler.Start(ServiceProvider);
 
             await Task.Delay(-1);
         }
 
-        private static void OnNewVote(object sender, UpdateEventArgs e)
+        private static void OnUpdateHandler(object sender, UpdateEventArgs e)
         {
             if (e.Update.Type == UpdateType.PollAnswer)
             {
-                Console.WriteLine(@$"{e.Update.PollAnswer.User.Id}: {e.Update.PollAnswer.OptionIds.FirstOrDefault()}");
                 Cmd.Send(new PollAddNewVoteCommand(e.Update.PollAnswer));
             }
         }

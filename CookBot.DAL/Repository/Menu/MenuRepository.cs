@@ -8,7 +8,7 @@ namespace CookBot.DAL.Repository.Menu
 {
     public class MenuRepository : IMenuRepository
     {
-        private string ConfigFile { get; } = "config.json";
+        private string ConfigFile => "config.json";
 
         public List<string> GetMenu(DateTime date)
         {
