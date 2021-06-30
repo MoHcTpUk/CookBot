@@ -2,7 +2,6 @@
 using Core.Module.MongoDb.Services;
 using MediatR;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -30,34 +29,49 @@ namespace CookBot.App.Commands.Poll
             if (poll == null)
                 throw new Exception("Poll not found");
 
-            poll.VotedNo ??= new List<int>();
-            poll.VotedYes ??= new List<int>();
+            poll.VotedNo ??= new();
+            poll.VotedYes ??= new();
 
             if (request.PollAnswer.OptionIds.Length == 0)
             {
-                poll.VotedNo.Remove(request.PollAnswer.User.Id);
-                poll.VotedYes.Remove(request.PollAnswer.User.Id);
+                var itemToRemove = poll.VotedNo.FirstOrDefault(_ => _.Id == request.PollAnswer.User.Id);
+                poll.VotedNo.Remove(itemToRemove);
+
+                itemToRemove = poll.VotedYes.FirstOrDefault(_ => _.Id == request.PollAnswer.User.Id);
+                poll.VotedYes.Remove(itemToRemove);
             }
             else
             {
                 if (request.PollAnswer.OptionIds[0] == 0)
                 {
-                    if (poll.VotedNo.Contains(request.PollAnswer.User.Id))
-                        poll.VotedNo.Remove(request.PollAnswer.User.Id);
+                    var item = poll.VotedNo.FirstOrDefault(_ => _.Id == request.PollAnswer.User.Id);
+
+                    if (item != null)
+                        poll.VotedNo.Remove(item);
                     else
-                    {
-                        poll.VotedNo.Add(request.PollAnswer.User.Id);
-                    }
+                        poll.VotedNo.Add(new UserEntity
+                        {
+                            Id = request.PollAnswer.User.Id,
+                            FirstName = request.PollAnswer.User.FirstName,
+                            LastName = request.PollAnswer.User.FirstName,
+                            UserName = request.PollAnswer.User.Username
+                        });
                 }
 
                 if (request.PollAnswer.OptionIds[0] == 1)
                 {
-                    if (poll.VotedYes.Contains(request.PollAnswer.User.Id))
-                        poll.VotedYes.Remove(request.PollAnswer.User.Id);
+                    var item = poll.VotedYes.FirstOrDefault(_ => _.Id == request.PollAnswer.User.Id);
+
+                    if (item != null)
+                        poll.VotedYes.Remove(item);
                     else
-                    {
-                        poll.VotedYes.Add(request.PollAnswer.User.Id);
-                    }
+                        poll.VotedYes.Add(new UserEntity
+                        {
+                            Id = request.PollAnswer.User.Id,
+                            FirstName = request.PollAnswer.User.FirstName,
+                            LastName = request.PollAnswer.User.FirstName,
+                            UserName = request.PollAnswer.User.Username
+                        });
                 }
             }
 
