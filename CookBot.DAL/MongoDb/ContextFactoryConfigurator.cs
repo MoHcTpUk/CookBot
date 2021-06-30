@@ -1,13 +1,14 @@
 ﻿using Core.DAL.Configuration;
+using Core.Module.MongoDb;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace CookBot.DAL.EF
+namespace CookBot.DAL.MongoDb
 {
     public class ContextFactoryConfigurator : IContextFactoryConfigurator
     {
         public void ConfigureContextFactory(IServiceCollection serviceCollection)
         {
-            serviceCollection.AddDbContextFactory<ApplicationDbContext, ExsampleContextFactory>(lifetime: ServiceLifetime.Transient);
+            serviceCollection.AddTransient<IMongoDatabaseFactory, MongoDatabaseFactory>();
         }
     }
 }

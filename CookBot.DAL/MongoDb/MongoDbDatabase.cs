@@ -1,23 +1,17 @@
-﻿using System;
-using System.IO;
-using Core.DAL.EF;
-using Microsoft.EntityFrameworkCore;
+﻿using Core.Module.MongoDb;
 using Microsoft.Extensions.Configuration;
+using MongoDB.Driver;
+using System;
+using System.IO;
 
-namespace CookBot.DAL.EF
+namespace CookBot.DAL.MongoDb
 {
-    public class ExsampleContextFactory : AbstractContextFactory<ApplicationDbContext>
+    public class MongoDatabaseFactory : IMongoDatabaseFactory
     {
         private const string AppSettingsFile = "config.json";
         private const string ConnectionStringName = "LocalConnection";
 
-        public ExsampleContextFactory()
-        {
-            OptionsBuilder = new DbContextOptionsBuilder<ApplicationDbContext>();
-            OptionsBuilder.UseNpgsql(GetDbConnectionString());
-        }
-
-        public sealed override string GetDbConnectionString()
+        public string GetDbConnectionString()
         {
             string path = Path.Combine(Directory.GetCurrentDirectory(), AppSettingsFile);
 
@@ -40,6 +34,13 @@ namespace CookBot.DAL.EF
             }
 
             throw new Exception(@$"Error while reading appsettings.json: File {path} not found");
+        }
+        public IMongoDatabase GetMongoDatabase()
+        {
+            var dataBaseName = "cookBot";
+            var Client = new MongoClient(GetDbConnectionString());
+
+            return Client.GetDatabase(dataBaseName);
         }
     }
 }
