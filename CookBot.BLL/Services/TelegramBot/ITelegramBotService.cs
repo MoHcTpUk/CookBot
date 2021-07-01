@@ -9,9 +9,10 @@ namespace CookBot.BLL.Services.TelegramBot
     {
         void StartReceiving();
         void Init(string botToken, long chatId);
-        Task<Message> SendPool(string question, string[] options, bool isAnonymous);
-        Task<Poll> ClosePool(int messageId);
-        Task<Message> SendMessage(string message);
+        Task<Message> SendPool(string question, string[] options, bool isAnonymous, long chatId);
+        Task<Poll> ClosePool(int messageId, long chatId);
+        Task<Message> SendMessage(string message, long chatId);
+
         public event EventHandler<UpdateEventArgs> OnUpdate;
     }
 }

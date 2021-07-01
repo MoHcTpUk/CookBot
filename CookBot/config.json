@@ -5,8 +5,10 @@
   },
   "Bot": {
     "BotToken": "",
-    //"ChatId": 0
-    "ChatId": 0 // test
+    //"ChatId": 0,
+    //"OrderChatId": 0,
+    "ChatId": 0, // test
+    "OrderChatId": 0 // test
   },
   "Scheduler": {
     "Hours": 13,

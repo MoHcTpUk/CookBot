@@ -10,7 +10,6 @@ namespace CookBot.BLL.Services.TelegramBot
     {
         private TelegramBotClient Bot { get; set; }
         private string BotToken { get; set; }
-        public long ChatId { get; private set; }
 
         public event EventHandler<UpdateEventArgs> OnUpdate
         {
@@ -21,7 +20,6 @@ namespace CookBot.BLL.Services.TelegramBot
         public void Init(string botToken, long chatId)
         {
             BotToken = botToken;
-            ChatId = chatId;
 
             Bot = new TelegramBotClient(BotToken);
         }
@@ -31,28 +29,28 @@ namespace CookBot.BLL.Services.TelegramBot
             Bot.StartReceiving();
         }
 
-        public async Task<Message> SendPool(string question, string[] options, bool isAnonymous)
+        public async Task<Message> SendPool(string question, string[] options, bool isAnonymous, long chatId)
         {
             return await Bot.SendPollAsync(
-                chatId: ChatId,
+                chatId: chatId,
                 question: question,
                 options: options,
                 isAnonymous: isAnonymous
             );
         }
 
-        public async Task<Message> SendMessage(string message)
+        public async Task<Message> SendMessage(string message, long chatId)
         {
             return await Bot.SendTextMessageAsync(
-                chatId: ChatId,
+                chatId: chatId,
                 text: message
             );
         }
 
-        public async Task<Poll> ClosePool(int messageId)
+        public async Task<Poll> ClosePool(int messageId, long chatId)
         {
             return await Bot.StopPollAsync(
-                chatId: ChatId,
+                chatId: chatId,
                 messageId: messageId
             );
         }

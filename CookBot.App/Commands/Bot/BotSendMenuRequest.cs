@@ -19,6 +19,8 @@ namespace CookBot.App.Commands.Bot
         private readonly IMenuRepository _menuRepository;
         private readonly IConfiguration _configuration;
 
+        private BotOptions _botOptions;
+
         public BotSendMenuRequestHandler(ITelegramBotService telegramBotService, IMenuRepository menuRepository, IConfiguration configuration)
         {
             _telegramBotService = telegramBotService;
@@ -28,6 +30,8 @@ namespace CookBot.App.Commands.Bot
 
         public async Task<Message> Handle(BotSendMenuRequest request, CancellationToken cancellationToken)
         {
+            _botOptions = _configuration.GetSection(BotOptions.Bot).Get<BotOptions>();
+
             var menuOptions = _configuration.GetSection(MenuOptions.Menu).Get<MenuOptions>();
 
             if (!menuOptions.Enable) 
@@ -53,7 +57,7 @@ namespace CookBot.App.Commands.Bot
                 text += "🥗 " + item + Environment.NewLine;
             }
 
-            return await _telegramBotService.SendMessage(text);
+            return await _telegramBotService.SendMessage(text, _botOptions.ChatId);
         }
     }
 }

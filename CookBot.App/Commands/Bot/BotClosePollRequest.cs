@@ -6,6 +6,8 @@ using System;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using CookBot.App.Options;
+using Microsoft.Extensions.Configuration;
 
 namespace CookBot.App.Commands.Bot
 {
@@ -15,15 +17,21 @@ namespace CookBot.App.Commands.Bot
     {
         private readonly ITelegramBotService _telegramBotService;
         private readonly IMongdoDbService<PollEntity> _pollService;
+        private readonly IConfiguration _configuration;
 
-        public BotClosePoolRequestHandler(ITelegramBotService telegramBotService, IMongdoDbService<PollEntity> pollService)
+        private BotOptions _botOptions;
+
+        public BotClosePoolRequestHandler(ITelegramBotService telegramBotService, IMongdoDbService<PollEntity> pollService, IConfiguration configuration)
         {
             _telegramBotService = telegramBotService;
             _pollService = pollService;
+            _configuration = configuration;
         }
 
         public async Task<Telegram.Bot.Types.Poll> Handle(BotClosePoolRequest request, CancellationToken cancellationToken)
         {
+            _botOptions = _configuration.GetSection(BotOptions.Bot).Get<BotOptions>();
+
             var poll = (await _pollService.SelectAsync(new() { _ => _.MessageId == request.MessageId })).FirstOrDefault();
 
             if (poll == null)
@@ -33,7 +41,7 @@ namespace CookBot.App.Commands.Bot
             poll.Updated = DateTime.Now;
             await _pollService.UpdateAsync(poll);
 
-            return await _telegramBotService.ClosePool(request.MessageId);
+            return await _telegramBotService.ClosePool(request.MessageId, _botOptions.ChatId);
         }
     }
 }
