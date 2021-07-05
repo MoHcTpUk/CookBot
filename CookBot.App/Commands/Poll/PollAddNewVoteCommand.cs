@@ -44,12 +44,12 @@ namespace CookBot.App.Commands.Poll
             {
                 if (request.PollAnswer.OptionIds[0] == 0)
                 {
-                    var item = poll.VotedNo.FirstOrDefault(_ => _.Id == request.PollAnswer.User.Id);
+                    var item = poll.VotedYes.FirstOrDefault(_ => _.Id == request.PollAnswer.User.Id);
 
                     if (item != null)
-                        poll.VotedNo.Remove(item);
+                        poll.VotedYes.Remove(item);
                     else
-                        poll.VotedNo.Add(new UserEntity
+                        poll.VotedYes.Add(new UserEntity
                         {
                             Id = request.PollAnswer.User.Id,
                             FirstName = request.PollAnswer.User.FirstName,
@@ -60,12 +60,12 @@ namespace CookBot.App.Commands.Poll
 
                 if (request.PollAnswer.OptionIds[0] == 1)
                 {
-                    var item = poll.VotedYes.FirstOrDefault(_ => _.Id == request.PollAnswer.User.Id);
+                    var item = poll.VotedNo.FirstOrDefault(_ => _.Id == request.PollAnswer.User.Id);
 
                     if (item != null)
-                        poll.VotedYes.Remove(item);
+                        poll.VotedNo.Remove(item);
                     else
-                        poll.VotedYes.Add(new UserEntity
+                        poll.VotedNo.Add(new UserEntity
                         {
                             Id = request.PollAnswer.User.Id,
                             FirstName = request.PollAnswer.User.FirstName,
