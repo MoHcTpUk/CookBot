@@ -4,6 +4,7 @@
     "Linux": "Europe/Chisinau"
   },
   "Bot": {
+    "AdminList": [0,1], 
     "BotToken": "",
     //"ChatId": 0,
     //"OrderChatId": 0,

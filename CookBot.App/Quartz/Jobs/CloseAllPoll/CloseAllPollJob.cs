@@ -4,6 +4,7 @@ using Quartz;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
+using CookBot.BLL;
 using CookBot.BLL.Services;
 
 namespace CookBot.App.Quartz.Jobs.CloseAllPoll

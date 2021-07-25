@@ -1,5 +1,4 @@
-﻿using CookBot.App.Options;
-using CookBot.BLL.Services.TelegramBot;
+﻿using CookBot.BLL.Services.TelegramBot;
 using MediatR;
 using Microsoft.Extensions.Configuration;
 using System.Threading;
@@ -27,10 +26,7 @@ namespace CookBot.App.Commands.Bot
         {
             _botOptions = _configuration.GetSection(BotOptions.Bot).Get<BotOptions>();
 
-            _telegramBotService.Init(
-                botToken: _botOptions.BotToken,
-                chatId: _botOptions.ChatId);
-
+            _telegramBotService.Init(_botOptions);
             _telegramBotService.StartReceiving(request.updateHandler);
 
             return Task.FromResult(Unit.Value);

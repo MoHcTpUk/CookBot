@@ -6,7 +6,6 @@ using CookBot.App.Quartz.Jobs.SendCooking;
 using CookBot.App.Quartz.Jobs.SendStatistics;
 using MediatR;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -36,8 +35,6 @@ namespace CookBot
 
     public class UpdateHandler : IUpdateHandler
     {
-        private readonly List<long> AdminList = new() {};
-
         private readonly IMediator _mediator;
 
         public UpdateType[] AllowedUpdates { get; }
@@ -69,7 +66,7 @@ namespace CookBot
         {
             var isBotCommand = update.Message.Entities.Select(_ => _.Type).ToList().Contains(MessageEntityType.BotCommand);
 
-            if (isBotCommand && AdminList.Contains(update.Message.From.Id))
+            if (isBotCommand)
                 _mediator.Send(new BotSendGoEat(update.Message));
 
             return Task.CompletedTask;

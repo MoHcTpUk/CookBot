@@ -8,13 +8,13 @@ namespace CookBot.BLL.Services.TelegramBot
     public class TelegramBotService : ITelegramBotService
     {
         private TelegramBotClient Bot { get; set; }
-        private string BotToken { get; set; }
+        private BotOptions BotOptions { get; set; }
 
-        public void Init(string botToken, long chatId)
+        public void Init(BotOptions options)
         {
-            BotToken = botToken;
+            BotOptions = options;
 
-            Bot = new TelegramBotClient(BotToken);
+            Bot = new TelegramBotClient(BotOptions.BotToken);
         }
 
         public void StartReceiving(IUpdateHandler updateHandler)
@@ -50,7 +50,8 @@ namespace CookBot.BLL.Services.TelegramBot
 
         public async Task DeleteMessage(Message message)
         {
-            await Bot.DeleteMessageAsync(message.Chat.Id,message.MessageId);
+            if (BotOptions.AdminList.Contains(message.From.Id))
+                await Bot.DeleteMessageAsync(message.Chat.Id,message.MessageId);
         }
     }
 }
