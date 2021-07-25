@@ -47,5 +47,10 @@ namespace CookBot.BLL.Services.TelegramBot
                 messageId: messageId
             );
         }
+
+        public async Task DeleteMessage(Message message)
+        {
+            await Bot.DeleteMessageAsync(message.Chat.Id,message.MessageId);
+        }
     }
 }
