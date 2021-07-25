@@ -3,12 +3,14 @@ using CookBot.App.Commands.Bot;
 using CookBot.App.Commands.Poll;
 using CookBot.App.Quartz.Jobs.CloseAllPoll;
 using CookBot.App.Quartz.Jobs.SendCooking;
+using CookBot.App.Quartz.Jobs.SendStatistics;
 using MediatR;
 using System;
-using System.Collections.Generic;
+using System.Threading;
 using System.Threading.Tasks;
-using CookBot.App.Quartz.Jobs.SendStatistics;
-using Telegram.Bot.Args;
+using Telegram.Bot;
+using Telegram.Bot.Extensions.Polling;
+using Telegram.Bot.Types;
 using Telegram.Bot.Types.Enums;
 
 namespace CookBot
@@ -20,7 +22,7 @@ namespace CookBot
 
         public static async Task Main()
         {
-            await Cmd.Send(new BotInitializeCommand(new List<EventHandler<UpdateEventArgs>> { OnUpdateHandler }));
+            await Cmd.Send(new BotInitializeCommand(new UpdateHandler(Cmd)));
 
             SendCookingPollJobScheduler.Start(ServiceProvider);
             CloseAllPollJobScheduler.Start(ServiceProvider);
@@ -28,13 +30,34 @@ namespace CookBot
 
             await Task.Delay(-1);
         }
+    }
 
-        private static void OnUpdateHandler(object sender, UpdateEventArgs e)
+    public class UpdateHandler : IUpdateHandler
+    {
+        private readonly IMediator _mediator;
+
+        public UpdateType[] AllowedUpdates { get; }
+
+        public UpdateHandler(IMediator mediator)
         {
-            if (e.Update.Type == UpdateType.PollAnswer)
+            _mediator = mediator;
+            AllowedUpdates = new UpdateType[0];
+        }
+
+        public Task HandleUpdate(ITelegramBotClient botClient, Update update, CancellationToken cancellationToken)
+        {
+            return update.Type switch
             {
-                Cmd.Send(new PollAddNewVoteCommand(e.Update.PollAnswer));
-            }
+                UpdateType.PollAnswer => _mediator.Send(new PollAddNewVoteCommand(update.PollAnswer), cancellationToken),
+                _ => Task.CompletedTask
+            };
+        }
+
+        public Task HandleError(ITelegramBotClient botClient, Exception exception, CancellationToken cancellationToken)
+        {
+            Console.WriteLine(exception.Message);
+
+            return Task.CompletedTask;
         }
     }
 }

@@ -13,12 +13,4 @@ namespace CookBot.DAL.Entities
         public List<UserEntity> VotedYes { get; set; }
         public List<UserEntity> VotedNo { get; set; }
     }
-
-    public class UserEntity
-    {
-        public int Id { get; set; }
-        public string UserName { get; set; }
-        public string FirstName { get; set; }
-        public string LastName { get; set; }
-    }
 }

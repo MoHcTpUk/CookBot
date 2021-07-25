@@ -1,7 +1,6 @@
-﻿using System;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Telegram.Bot;
-using Telegram.Bot.Args;
+using Telegram.Bot.Extensions.Polling;
 using Telegram.Bot.Types;
 
 namespace CookBot.BLL.Services.TelegramBot
@@ -11,12 +10,6 @@ namespace CookBot.BLL.Services.TelegramBot
         private TelegramBotClient Bot { get; set; }
         private string BotToken { get; set; }
 
-        public event EventHandler<UpdateEventArgs> OnUpdate
-        {
-            add => Bot.OnUpdate += value;
-            remove => Bot.OnUpdate -= value;
-        }
-
         public void Init(string botToken, long chatId)
         {
             BotToken = botToken;
@@ -24,9 +17,9 @@ namespace CookBot.BLL.Services.TelegramBot
             Bot = new TelegramBotClient(BotToken);
         }
 
-        public void StartReceiving()
+        public void StartReceiving(IUpdateHandler updateHandler)
         {
-            Bot.StartReceiving();
+            Bot.StartReceiving(updateHandler);
         }
 
         public async Task<Message> SendPool(string question, string[] options, bool isAnonymous, long chatId)

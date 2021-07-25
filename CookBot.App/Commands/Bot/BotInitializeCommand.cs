@@ -1,18 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Threading;
-using System.Threading.Tasks;
-using CookBot.App.Options;
+﻿using CookBot.App.Options;
 using CookBot.BLL.Services.TelegramBot;
 using MediatR;
 using Microsoft.Extensions.Configuration;
-using Telegram.Bot.Args;
+using System.Threading;
+using System.Threading.Tasks;
+using Telegram.Bot.Extensions.Polling;
 
 namespace CookBot.App.Commands.Bot
 {
-    public record BotInitializeCommand(List<EventHandler<UpdateEventArgs>> OnUpdateHandlers) : IRequest;
+    public record BotInitializeCommand(IUpdateHandler updateHandler) : IRequest;
 
-    public class BotInitializeCommandHandler: IRequestHandler<BotInitializeCommand>
+    public class BotInitializeCommandHandler : IRequestHandler<BotInitializeCommand>
     {
         private readonly ITelegramBotService _telegramBotService;
         private readonly IConfiguration _configuration;
@@ -30,15 +28,10 @@ namespace CookBot.App.Commands.Bot
             _botOptions = _configuration.GetSection(BotOptions.Bot).Get<BotOptions>();
 
             _telegramBotService.Init(
-                botToken:_botOptions.BotToken, 
-                chatId:_botOptions.ChatId);
+                botToken: _botOptions.BotToken,
+                chatId: _botOptions.ChatId);
 
-            foreach (var onUpdateHandler in request.OnUpdateHandlers)
-            {
-                _telegramBotService.OnUpdate += onUpdateHandler;
-            }
-
-            _telegramBotService.StartReceiving();
+            _telegramBotService.StartReceiving(request.updateHandler);
 
             return Task.FromResult(Unit.Value);
         }
