@@ -1,20 +1,19 @@
 ﻿using CookBot.App.Commands.Bot;
-using CookBot.DAL.Entities;
-using Core.Module.MongoDb.Services;
 using MediatR;
 using Quartz;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
+using CookBot.BLL.Services;
 
 namespace CookBot.App.Quartz.Jobs.CloseAllPoll
 {
     public class CloseAllPollJob : IJob
     {
         private readonly IMediator _mediator;
-        private readonly IMongdoDbService<PollEntity> _pollService;
+        private readonly PollService _pollService;
 
-        public CloseAllPollJob(IMediator mediator, IMongdoDbService<PollEntity> pollService)
+        public CloseAllPollJob(IMediator mediator, PollService pollService)
         {
             _mediator = mediator;
             _pollService = pollService;
@@ -22,7 +21,7 @@ namespace CookBot.App.Quartz.Jobs.CloseAllPoll
 
         public async Task Execute(IJobExecutionContext context)
         {
-            var openedPolls = (await _pollService.SelectAsync(new(){_=>!_.isClosed})).ToList();
+            var openedPolls = (await _pollService.SelectAsync(new() { _ => !_.isClosed })).ToList();
 
             var lastPool = openedPolls.FirstOrDefault(_ => _.MessageId == openedPolls.Max(_ => _.MessageId));
 

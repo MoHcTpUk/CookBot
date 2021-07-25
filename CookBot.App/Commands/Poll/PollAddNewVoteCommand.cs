@@ -1,10 +1,10 @@
 ﻿using CookBot.DAL.Entities;
-using Core.Module.MongoDb.Services;
 using MediatR;
 using System;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using CookBot.BLL.Services;
 using Telegram.Bot.Types;
 
 namespace CookBot.App.Commands.Poll
@@ -13,9 +13,9 @@ namespace CookBot.App.Commands.Poll
 
     public class PollAddNewVoteCommandHandler : IRequestHandler<PollAddNewVoteCommand>
     {
-        private readonly IMongdoDbService<PollEntity> _pollService;
+        private readonly PollService _pollService;
 
-        public PollAddNewVoteCommandHandler(IMongdoDbService<PollEntity> pollService)
+        public PollAddNewVoteCommandHandler(PollService pollService)
         {
             _pollService = pollService;
         }

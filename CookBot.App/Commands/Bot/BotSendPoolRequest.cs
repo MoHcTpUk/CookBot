@@ -1,12 +1,12 @@
-﻿using CookBot.BLL.Services.TelegramBot;
+﻿using CookBot.App.Options;
+using CookBot.BLL.Services.TelegramBot;
 using CookBot.DAL.Entities;
-using Core.Module.MongoDb.Services;
 using MediatR;
+using Microsoft.Extensions.Configuration;
 using System;
 using System.Threading;
 using System.Threading.Tasks;
-using CookBot.App.Options;
-using Microsoft.Extensions.Configuration;
+using CookBot.BLL.Services;
 using Telegram.Bot.Types;
 
 namespace CookBot.App.Commands.Bot
@@ -16,12 +16,12 @@ namespace CookBot.App.Commands.Bot
     public class BotSendPoolRequestHandler : IRequestHandler<BotSendPoolRequest, Message>
     {
         private readonly ITelegramBotService _telegramBotService;
-        private readonly IMongdoDbService<PollEntity> _pollService;
+        private readonly PollService _pollService;
         private readonly IConfiguration _configuration;
 
         private BotOptions _botOptions;
 
-        public BotSendPoolRequestHandler(ITelegramBotService telegramBotService, IMongdoDbService<PollEntity> pollService, IConfiguration configuration)
+        public BotSendPoolRequestHandler(ITelegramBotService telegramBotService, PollService pollService, IConfiguration configuration)
         {
             _telegramBotService = telegramBotService;
             _pollService = pollService;
@@ -38,7 +38,7 @@ namespace CookBot.App.Commands.Bot
                 "⛔️ НЕТ, я сыт багами в коде 🐞"
             };
 
-            var message = await _telegramBotService.SendPool(question, options, false,_botOptions.ChatId);
+            var message = await _telegramBotService.SendPool(question, options, false, _botOptions.ChatId);
 
             var newPool = new PollEntity()
             {
