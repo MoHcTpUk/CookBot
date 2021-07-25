@@ -7,6 +7,7 @@ using MediatR;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using CookBot.App.Quartz.Jobs.SendStatistics;
 using Telegram.Bot.Args;
 using Telegram.Bot.Types.Enums;
 
@@ -23,6 +24,7 @@ namespace CookBot
 
             SendCookingPollJobScheduler.Start(ServiceProvider);
             CloseAllPollJobScheduler.Start(ServiceProvider);
+            SendStatisticsJobScheduler.Start(ServiceProvider);
 
             await Task.Delay(-1);
         }
