@@ -1,5 +1,4 @@
-﻿using CookBot.App.Options;
-using CookBot.BLL.Services.TelegramBot;
+﻿using CookBot.BLL.Services.TelegramBot;
 using MediatR;
 using Microsoft.Extensions.Configuration;
 using System;
@@ -26,6 +25,11 @@ namespace CookBot.App.Commands.Bot
 
         public async Task<Message> Handle(BotSendGoEat request, CancellationToken cancellationToken)
         {
+            var allowAccess = _telegramBotService.ValidateBotCommandAccess(request.Message);
+
+            if (!allowAccess)
+                return null;
+
             _botOptions = _configuration.GetSection(BotOptions.Bot).Get<BotOptions>();
 
             if (request.Message.Chat.Id == _botOptions.ChatId)

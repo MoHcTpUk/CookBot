@@ -12,5 +12,6 @@ namespace CookBot.BLL.Services.TelegramBot
         Task<Poll> ClosePool(int messageId, long chatId);
         Task<Message> SendMessage(string message, long chatId);
         Task DeleteMessage(Message message);
+        bool ValidateBotCommandAccess(Message message);
     }
 }

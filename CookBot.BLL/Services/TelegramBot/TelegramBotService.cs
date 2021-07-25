@@ -50,8 +50,12 @@ namespace CookBot.BLL.Services.TelegramBot
 
         public async Task DeleteMessage(Message message)
         {
-            if (BotOptions.AdminList.Contains(message.From.Id))
-                await Bot.DeleteMessageAsync(message.Chat.Id,message.MessageId);
+            await Bot.DeleteMessageAsync(message.Chat.Id,message.MessageId);
+        }
+
+        public bool ValidateBotCommandAccess(Message message)
+        {
+            return BotOptions.AdminList.Contains(message.From.Id);
         }
     }
 }
