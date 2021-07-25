@@ -53,7 +53,7 @@ namespace CookBot.App.Commands.Poll
                         {
                             Id = request.PollAnswer.User.Id,
                             FirstName = request.PollAnswer.User.FirstName,
-                            LastName = request.PollAnswer.User.FirstName,
+                            LastName = request.PollAnswer.User.LastName,
                             UserName = request.PollAnswer.User.Username
                         });
                 }
@@ -69,7 +69,7 @@ namespace CookBot.App.Commands.Poll
                         {
                             Id = request.PollAnswer.User.Id,
                             FirstName = request.PollAnswer.User.FirstName,
-                            LastName = request.PollAnswer.User.FirstName,
+                            LastName = request.PollAnswer.User.LastName,
                             UserName = request.PollAnswer.User.Username
                         });
                 }
