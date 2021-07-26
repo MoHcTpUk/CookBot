@@ -64,6 +64,9 @@ namespace CookBot
 
         private Task MessageHandler(Update update)
         {
+            if (update.Message.Entities == null) 
+                return Task.CompletedTask;
+
             var isBotCommand = update.Message.Entities.Select(_ => _.Type).ToList().Contains(MessageEntityType.BotCommand);
 
             if (isBotCommand)
