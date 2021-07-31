@@ -1,4 +1,4 @@
-﻿using CookBot.App.Options;
+﻿using CookBot.BLL;
 using CookBot.BLL.Services.TelegramBot;
 using CookBot.DAL.Entities;
 using MediatR;
@@ -6,8 +6,6 @@ using Microsoft.Extensions.Configuration;
 using System;
 using System.Threading;
 using System.Threading.Tasks;
-using CookBot.BLL;
-using CookBot.BLL.Services;
 using Telegram.Bot.Types;
 
 namespace CookBot.App.Commands.Bot
@@ -33,10 +31,10 @@ namespace CookBot.App.Commands.Bot
         {
             _botOptions = _configuration.GetSection(BotOptions.Bot).Get<BotOptions>();
 
-            string question = "Будешь кушац?";
+            string question = "Будешь завтра кушать?";
             string[] options = {
-                "✅ ДА",
-                "⛔️ НЕТ, я сыт багами в коде 🐞"
+                "ДА",
+                "НЕТ"
             };
 
             var message = await _telegramBotService.SendPool(question, options, false, _botOptions.ChatId);

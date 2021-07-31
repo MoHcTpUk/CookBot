@@ -33,7 +33,7 @@ namespace CookBot.App.Quartz.Jobs.SendStatistics
                 var trigger = TriggerBuilder.Create()
                     .WithSchedule(
                         CronScheduleBuilder
-                            .CronSchedule(@$"0 {schedulerOptions.Minutes} {schedulerOptions.Hours} ? * 6L")
+                            .CronSchedule(@$"0 {schedulerOptions.Minutes} {schedulerOptions.Hours+1} ? * 6L")
                             //.CronSchedule(@$"0 40 14 ? * 1L")
                             .InTimeZone(TimeZoneInfo.FindSystemTimeZoneById(timeZoneId)))
                     .Build();

@@ -1,5 +1,4 @@
-﻿using CookBot.App.Options;
-using CookBot.BLL.Services;
+﻿using CookBot.BLL;
 using CookBot.BLL.Services.TelegramBot;
 using CookBot.DAL.Entities;
 using MediatR;
@@ -10,7 +9,6 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Threading;
 using System.Threading.Tasks;
-using CookBot.BLL;
 using Telegram.Bot.Types;
 
 namespace CookBot.App.Commands.Bot
@@ -69,7 +67,7 @@ namespace CookBot.App.Commands.Bot
             stasMessage += $@"В среднем в день заказано: {dinnerCount / dayCount} порций" + Environment.NewLine;
             stasMessage += $@"Отказались от обедов: {noEatCount} раз" + Environment.NewLine;
 
-            stasMessage += "Самые голодные:" + Environment.NewLine;
+            stasMessage += "Больше всех кушали:" + Environment.NewLine;
             foreach (var user in mostEating)
             {
                 stasMessage += $@"  {user.User.FirstName}";
@@ -78,7 +76,7 @@ namespace CookBot.App.Commands.Bot
                 stasMessage += $@" кушал {user.Count} раз" + Environment.NewLine;
             }
 
-            stasMessage += "Самые сытые:" + Environment.NewLine;
+            stasMessage += "Меньше всех кушали:" + Environment.NewLine;
             foreach (var user in lessEating)
             {
                 stasMessage += $@"  {user.User.FirstName}";
@@ -88,18 +86,6 @@ namespace CookBot.App.Commands.Bot
             }
 
             var message = await _telegramBotService.SendMessage(stasMessage, _botOptions.ChatId);
-
-            //stasMessage = "Общая статистика: " + Environment.NewLine + Environment.NewLine;
-
-            //foreach (var user in allUserStats)
-            //{
-            //    stasMessage += $@"  {user.User.FirstName}";
-            //    if (!string.IsNullOrEmpty(user.User.UserName))
-            //        stasMessage += $@"(@{user.User.UserName})";
-            //    stasMessage += $@" кушал {user.Count} раз" + Environment.NewLine;
-            //}
-
-            //message = await _telegramBotService.SendMessage(stasMessage, _botOptions.ChatId);
 
             return message;
         }
